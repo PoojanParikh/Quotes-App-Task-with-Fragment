@@ -11,7 +11,7 @@ import android.view.ViewGroup;
  * Created by VNurtureTechnologies on 20/02/17.
  */
 
-public class GridViewFagment extends Fragment {
+public class GridViewFragment extends Fragment {
 
     @Nullable
     @Override

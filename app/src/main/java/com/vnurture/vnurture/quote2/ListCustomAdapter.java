@@ -1,5 +1,8 @@
 package com.vnurture.vnurture.quote2;
 
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -17,10 +20,11 @@ import java.util.ArrayList;
 public class ListCustomAdapter extends BaseAdapter {
     ArrayList<QuoteModel> quotesModelArrayList;
     LayoutInflater layoutInflater;
-    Context context;
+    Context contextList;
+    FullPageQuoteFragment fullPageQuoteFragment;
 
-    ListCustomAdapter(Context context,ArrayList<QuoteModel> quotesModelArrayList){
-        this.context=context;
+    ListCustomAdapter(Context contextList,ArrayList<QuoteModel> quotesModelArrayList){
+        this.contextList=contextList;
         this.quotesModelArrayList=quotesModelArrayList;
     }
 
@@ -52,7 +56,7 @@ public class ListCustomAdapter extends BaseAdapter {
 
         if (view == null) {
             holderList = new ViewHolderList();
-            layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            layoutInflater = (LayoutInflater) contextList.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = layoutInflater.inflate(R.layout.single_row_list_view, viewGroup, false);
 
 
@@ -75,9 +79,19 @@ public class ListCustomAdapter extends BaseAdapter {
         holderList.tvQuotesListView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentList = new Intent(context,FullPageQuoteFragment.class);
+                /*Intent intentList = new Intent(context,FullPageQuoteFragment.class);
                 intentList.putExtra("Quotes",quotesModelArrayList.get(i).getQuotes());
-                context.startActivity(intentList);
+                context.startActivity(intentList);*/
+
+                Activity activityList = (Activity) contextList;
+
+                fullPageQuoteFragment = new FullPageQuoteFragment();
+
+                FragmentManager fragmentManager = activityList.getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_activity_layout,fullPageQuoteFragment);
+                fragmentTransaction.addToBackStack("");
+                fragmentTransaction.commit();
             }
         });
 

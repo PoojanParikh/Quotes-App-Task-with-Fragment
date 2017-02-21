@@ -1,5 +1,8 @@
 package com.vnurture.vnurture.quote2;
 
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -20,6 +23,7 @@ public class GridCustomAdapter extends BaseAdapter {
     Context contextGrid;
     LayoutInflater inflater;
     int[] images;
+    ListViewfragment listViewFragment;
 
     GridCustomAdapter(Context contextGrid,ArrayList<QuotesCatagoryModel> quotesCatagoryModelArrayList,int[] images){
 
@@ -89,9 +93,19 @@ public class GridCustomAdapter extends BaseAdapter {
         holder.ivGridView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentGrid=new Intent(contextGrid,ListViewfragment.class);
+                /*Intent intentGrid=new Intent(contextGrid,ListViewfragment.class);
                 intentGrid.putExtra("QuotesList",quotesCatagoryModelArrayList.get(i).getId());
-                contextGrid.startActivity(intentGrid);
+                contextGrid.startActivity(intentGrid);*/
+
+                listViewFragment = new ListViewfragment();
+
+                Activity activityGrid = (Activity) contextGrid;
+
+                FragmentManager fragmentManager = activityGrid.getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_activity_layout,listViewFragment);
+                fragmentTransaction.addToBackStack("");
+                fragmentTransaction.commit();
 
             }
         });

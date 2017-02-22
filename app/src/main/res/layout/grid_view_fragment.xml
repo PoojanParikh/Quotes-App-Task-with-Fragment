@@ -8,6 +8,7 @@
     android:verticalSpacing="10dp"
     android:gravity="center"
     android:stretchMode="columnWidth"
-    android:id="@+id/fragment_grid">
+    android:id="@+id/fragment_grid"
+    android:background="@drawable/ic_quote_green">
 
 </GridView>

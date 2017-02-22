@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,8 +71,7 @@ public class ListCustomAdapter extends BaseAdapter {
             holderList=(ViewHolderList) view.getTag();
         }
 
-        /*holder.tvIdListView.setText("Id: "+String.valueOf(quotesModelArrayList.get(i).getId()));
-        holder.tvCatIdListView.setText("Name: "+ quotesModelArrayList.get(i).getCatId());*/
+
         holderList.tvQuotesListView.setText(quotesModelArrayList.get(i).getQuotes());
         holderList.tvQuotesListView.setSelected(true);
         holderList.tvQuotesListView.requestFocus();
@@ -79,13 +79,15 @@ public class ListCustomAdapter extends BaseAdapter {
         holderList.tvQuotesListView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intentList = new Intent(context,FullPageQuoteFragment.class);
-                intentList.putExtra("Quotes",quotesModelArrayList.get(i).getQuotes());
-                context.startActivity(intentList);*/
+
 
                 Activity activityList = (Activity) contextList;
 
                 fullPageQuoteFragment = new FullPageQuoteFragment();
+
+                Bundle bundleList = new Bundle();
+                bundleList.putString("Quote",quotesModelArrayList.get(i).getQuotes());
+                fullPageQuoteFragment.setArguments(bundleList);
 
                 FragmentManager fragmentManager = activityList.getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

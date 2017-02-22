@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +65,7 @@ public class GridCustomAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.single_row_grid_view, viewGroup, false);
 
 
-            //holder.tvIdGridView = (TextView) view.findViewById(R.id.tv_id_grid_view);
+
             holder.tvGridView=(TextView) view.findViewById(R.id.tv_grid_view);
             holder.ivGridView=(ImageView) view.findViewById(R.id.grid_image);
 
@@ -75,7 +76,7 @@ public class GridCustomAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-        //holder.tvIdGridView.setText("Id: "+String.valueOf(quotesCatagoryModelArrayList.get(i).getId()));
+
         holder.tvGridView.setText(quotesCatagoryModelArrayList.get(i).getCatagory());
         holder.tvGridView.setSelected(true);
         holder.ivGridView.setImageResource(images[i]);
@@ -83,9 +84,20 @@ public class GridCustomAdapter extends BaseAdapter {
         holder.tvGridView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentGrid=new Intent(contextGrid,ListViewfragment.class);
-                intentGrid.putExtra("QuotesList",quotesCatagoryModelArrayList.get(i).getId());
-                contextGrid.startActivity(intentGrid);
+
+                listViewFragment = new ListViewfragment();
+
+                Bundle bundleGrid = new Bundle();
+                bundleGrid.putInt("QuotesList",quotesCatagoryModelArrayList.get(i).getId());
+                listViewFragment.setArguments(bundleGrid);
+
+                Activity activityGrid = (Activity) contextGrid;
+
+                FragmentManager fragmentManager = activityGrid.getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_activity_layout,listViewFragment);
+                fragmentTransaction.addToBackStack("");
+                fragmentTransaction.commit();
 
             }
         });
@@ -93,11 +105,13 @@ public class GridCustomAdapter extends BaseAdapter {
         holder.ivGridView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intentGrid=new Intent(contextGrid,ListViewfragment.class);
-                intentGrid.putExtra("QuotesList",quotesCatagoryModelArrayList.get(i).getId());
-                contextGrid.startActivity(intentGrid);*/
 
                 listViewFragment = new ListViewfragment();
+
+                Bundle bundleGrid = new Bundle();
+                bundleGrid.putInt("QuotesList",quotesCatagoryModelArrayList.get(i).getId());
+                listViewFragment.setArguments(bundleGrid);
+
 
                 Activity activityGrid = (Activity) contextGrid;
 

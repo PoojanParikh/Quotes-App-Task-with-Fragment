@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 public class ListViewfragment extends Fragment {
 
     ListView listView;
+
 
     int position;
 
@@ -54,8 +56,7 @@ public class ListViewfragment extends Fragment {
         ProgressDialog dialog;
         ArrayList<QuoteModel> quotesModelArrayList;
         ListCustomAdapter listCustomAdapter;
-
-
+        Exception exceptionList;
 
         @Override
         protected void onPreExecute() {
@@ -89,11 +90,13 @@ public class ListViewfragment extends Fragment {
                     return bufferString;
 
 
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } catch (Exception e) {
+                    this.exceptionList = e;
+
                 }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                this.exceptionList = e;
+
             }
             return null;
         }
@@ -127,8 +130,9 @@ public class ListViewfragment extends Fragment {
 
 
 
-            } catch (JSONException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                this.exceptionList = e;
+                Toast.makeText(getActivity(), "Requires Internet Connection", Toast.LENGTH_SHORT).show();
             }
 
             listCustomAdapter = new ListCustomAdapter(getActivity(),quotesModelArrayList);

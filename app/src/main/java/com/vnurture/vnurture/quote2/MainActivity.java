@@ -42,8 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_activity_layout,gridViewFragment);
-        fragmentTransaction.addToBackStack("");
+        fragmentTransaction.add(R.id.main_activity_layout,gridViewFragment);
         fragmentTransaction.commit();
     }
 

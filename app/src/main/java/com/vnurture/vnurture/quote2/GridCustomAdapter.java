@@ -67,6 +67,9 @@ public class GridCustomAdapter extends BaseAdapter {
 
 
             holder.tvGridView=(TextView) view.findViewById(R.id.tv_grid_view);
+            holder.tvGridView.setSelected(true);
+            holder.tvGridView.requestFocus();
+
             holder.ivGridView=(ImageView) view.findViewById(R.id.grid_image);
 
             view.setTag(holder);

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +34,18 @@ public class GridViewFragment extends Fragment {
 
     GridView gridView;
     ListViewfragment listViewfragment = new ListViewfragment();
-    int[] image = new int[]{R.drawable.ic_life,R.drawable.ic_vue,R.drawable.ic_facebook_love,R.drawable.ic_fedora,R.drawable.ic_pinterest_circle,R.drawable.ic_yaoming_meme,R.drawable.ic_mega_icon};
+
+
+
+    int[] image = new int[]{
+            R.drawable.ic_life,
+            R.drawable.ic_vue,
+            R.drawable.ic_facebook_love,
+            R.drawable.ic_fedora,
+            R.drawable.ic_pinterest_circle,
+            R.drawable.ic_yaoming_meme,
+            R.drawable.ic_mega_icon
+    };
 
 
 
@@ -58,8 +70,7 @@ public class GridViewFragment extends Fragment {
     class MyGridClass extends AsyncTask<String, Void, String> {
 
         ProgressDialog progressDialog;
-
-
+        Exception exceptionGrid;
 
         @Override
         protected void onPreExecute() {
@@ -93,11 +104,13 @@ public class GridViewFragment extends Fragment {
                     return bufferString;
 
 
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } catch (Exception e) {
+                    this.exceptionGrid = e;
+
                 }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                this.exceptionGrid=e;
+
             }
             return null;
         }
@@ -130,8 +143,9 @@ public class GridViewFragment extends Fragment {
 
 
 
-            } catch (JSONException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                this.exceptionGrid = e;
+                Toast.makeText(getActivity(), "Requires Internet Connection", Toast.LENGTH_SHORT).show();
             }
 
 
